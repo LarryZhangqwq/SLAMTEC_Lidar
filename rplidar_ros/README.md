@@ -1,55 +1,80 @@
-RPLIDAR ROS package
-=====================================================================
+# 运行rplidar节点
 
-ROS node and test application for RPLIDAR
+## 1.1 **构建** **rplidar ros** 包（已完成）
 
-Visit following Website for more details about RPLIDAR:
+功能包下载地址：https://github.com/Slamtec/rplidar_ros/
 
-rplidar roswiki: http://wiki.ros.org/rplidar
+~~~~
+source devel/setup.bash
+~~~~
 
-rplidar HomePage:   http://www.slamtec.com/en/Lidar
 
-rplidar SDK: https://github.com/Slamtec/rplidar_sdk
 
-rplidar Tutorial:  https://github.com/robopeak/rplidar_ros/wiki
+## 1.2 映射USB串口（已完成）
 
-How to build rplidar ros package
-=====================================================================
-    1) Clone this project to your catkin's workspace src folder
-    2) Running catkin_make to build rplidarNode and rplidarNodeClient
+在rplidar_ros功能包路径下，安装 USB 端口重映射：
 
-How to run rplidar ros package
-=====================================================================
-There're two ways to run rplidar ros package
+````
+./scripts/create_udev_rules.sh
+````
 
-I. Run rplidar node and view in the rviz
-------------------------------------------------------------
-roslaunch rplidar_ros view_rplidar.launch (for RPLIDAR A1/A2)
-,
-roslaunch rplidar_ros view_rplidar_a3.launch (for RPLIDAR A3)
-,
-roslaunch rplidar_ros view_rplidar_s1.launch (for RPLIDAR S1)
-or
-roslaunch rplidar_ros view_rplidar_s2.launch (for RPLIDAR S2)
+使用以下命令修改重映射：
 
-You should see rplidar's scan result in the rviz.
+````
+ls -l /dev | grep ttyUSB
+````
 
-II. Run rplidar node and view using test application
-------------------------------------------------------------
-roslaunch rplidar_ros rplidar.launch (for RPLIDAR A1/A2)
-,
-roslaunch rplidar_ros rplidar_a3.launch (for RPLIDAR A3)
-,
-roslaunch rplidar_ros rplidar_s1.launch (for RPLIDAR S1)
-or
-roslaunch rplidar_ros rplidar_s2.launch (for RPLIDAR S2)
+更改 USB 端口重新映射后，更改有关 serial_port 值的启动文件。
 
+**端口名称更改为“ttyUSB0”**
+
+**记得给ttyUSB0访问权限**
+
+````
+chmod 777 ttyUSB0
+````
+
+
+
+## 1.3 **运行** **rplidar ros** 包
+
+* 运行rplidar节点，在rviz中查看
+
+````
+roslaunch rplidar_ros view_rplidar_s1.launch
+````
+
++ 运行 rplidar 节点
+
+````
+roslaunch rplidar_ros rplidar_s1.launch
+````
+
+启动测试应用程序
+
+````
 rosrun rplidar_ros rplidarNodeClient
+````
 
-You should see rplidar's scan result in the console
+使用以下指令打印节点传出的信息
 
-Notice: the different is serial_baudrate between A1/A2<115200> , A3/S1<256000> and S2<1000000>
+````
+rostopic | echo 
+````
 
-RPLidar frame
-=====================================================================
-RPLidar frame must be broadcasted according to picture shown in rplidar-frame.png
+
+
+## Tips:
+
+使用以下指令查看ROS是否在执行：
+
+````
+ps -e | grep ROS
+````
+
+杀掉进程：
+
+````
+kill -9 + 上条指令查询出来的ROS进程编号
+````
+
