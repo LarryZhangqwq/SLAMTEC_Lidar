@@ -1,12 +1,20 @@
 # 运行rplidar节点
 
-## 1.1 **构建** **rplidar ros** 包（已完成）
+## 1.1 **构建** **rplidar ros** 包
 
 功能包下载地址：https://github.com/Slamtec/rplidar_ros/
+
+注意：如果没有将更新环境变量写到【.bahsrc】中，每次执行运行程序前，必须先更新环境变量。(已经写入)
 
 ~~~~
 source devel/setup.bash
 ~~~~
+
+在catkin根目录下编译**(新克隆需要重新编)**
+
+````
+catkin_make
+````
 
 
 
