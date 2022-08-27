@@ -3,7 +3,7 @@
 
 本repo主要整理总结使用SDK对思岚RPLIDAR S1进行操作
 
-**具体细节请查看“使用ROS操作Lidar.md**
+**具体细节请查看“使用ROS操作Lidar.md**"
 
 
 
