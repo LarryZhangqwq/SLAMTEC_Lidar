@@ -1,22 +1,24 @@
-# 使用ROS操作Lidar
+# 运行rplidar节点
 
-## 1. 运行rplidar节点
+## 1.1 **构建** **rplidar ros** 包
 
-rplidar_ros功能包：https://github.com/Slamtec/rplidar_ros/
+功能包下载地址：https://github.com/Slamtec/rplidar_ros/
 
-### 1.1 构建rplidar ros包
+注意：如果没有将更新环境变量写到【.bahsrc】中，每次执行运行程序前，必须先更新环境变量。(已经写入)
 
-克隆功能包到src文件夹下
+~~~~
+source devel/setup.bash
+~~~~
 
-运行 catkin_make 来构建 rplidarNode 和 rplidarNodeClient
-
-注意：如果没有将更新环境变量写到【.bahsrc】中，每次执行运行程序前，必须先更新环境变量。
+在catkin根目录下编译**(新克隆需要重新编)**
 
 ````
-source devel/setup.bash # 更新环境变量
+catkin_make
 ````
 
-### 1.2 重新映射USB串口
+
+
+## 1.2 映射USB串口（已完成）
 
 在rplidar_ros功能包路径下，安装 USB 端口重映射：
 
@@ -30,36 +32,57 @@ source devel/setup.bash # 更新环境变量
 ls -l /dev | grep ttyUSB
 ````
 
-![图片](Image/图片.png)
-
 更改 USB 端口重新映射后，更改有关 serial_port 值的启动文件。
 
-![图片1](Image/图片1.png)
+**端口名称更改为“ttyUSB0”**
 
-### 1.3 运行rplidar ros包
-
-#### 1.3.1 在rviz中查看
+**记得给ttyUSB0访问权限**
 
 ````
-roslaunch rplidar_ros view_rplidar_s1.launch # RPLIDAR S1
+chmod 777 ttyUSB0
 ````
 
-![3](Image/3.png)
 
-#### 1.3.2 查看原始数据
 
-运行rplidar节点：
+## 1.3 **运行** **rplidar ros** 包
+
+* 运行rplidar节点，在rviz中查看
 
 ````
-roslaunch rplidar_ros rplidar_s1.launch # RPLIDAR S1
+roslaunch rplidar_ros view_rplidar_s1.launch
 ````
 
-启动测试应用程序：
++ 运行 rplidar 节点
 
-`````
+````
+roslaunch rplidar_ros rplidar_s1.launch
+````
+
+启动测试应用程序
+
+````
 rosrun rplidar_ros rplidarNodeClient
-`````
+````
 
-在控制台中看到 rplidar 的扫描结果
+使用以下指令打印节点传出的信息
 
-![4](Image/4.png)
+````
+rostopic | echo 
+````
+
+
+
+## Tips:
+
+使用以下指令查看ROS是否在执行：
+
+````
+ps -e | grep ROS
+````
+
+杀掉进程：
+
+````
+kill -9 + 上条指令查询出来的ROS进程编号
+````
+
