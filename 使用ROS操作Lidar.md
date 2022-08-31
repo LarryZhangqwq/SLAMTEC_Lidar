@@ -39,7 +39,7 @@ ls -l /dev | grep ttyUSB
 **记得给ttyUSB0访问权限**
 
 ````
-chmod 777 ttyUSB0
+sudo chmod 777 /dev/ttyUSB0
 ````
 
 
@@ -64,10 +64,18 @@ roslaunch rplidar_ros rplidar_s1.launch
 rosrun rplidar_ros rplidarNodeClient
 ````
 
+使用一下指令查看节点是否在运行
+
+`````shell
+rostopic list
+`````
+
+雷达的节点应该是：/scan
+
 使用以下指令打印节点传出的信息
 
 ````
-rostopic | echo 
+rostopic echo /scan 
 ````
 
 
